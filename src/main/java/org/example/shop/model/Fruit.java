@@ -1,23 +1,21 @@
 package org.example.shop.model;
 
+import lombok.Setter;
+
+@Setter
 public class Fruit extends Product {
 
     private boolean isFresh;
-    private String sweetness;
+    private SweetnessLevel sweetness;
+
+    public Fruit() {
+    }
 
     public Fruit(String title, double price,
-                 boolean isFresh, String sweetness) {
+                 boolean isFresh, SweetnessLevel sweetness) {
         super(title, price);
         this.isFresh = isFresh;
         this.sweetness = sweetness;
-    }
-
-    public boolean isFresh() {
-        return isFresh;
-    }
-
-    public String getSweetness() {
-        return sweetness;
     }
 
     @Override
