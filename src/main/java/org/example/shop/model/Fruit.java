@@ -3,7 +3,7 @@ package org.example.shop.model;
 import lombok.Setter;
 
 @Setter
-public class Fruit extends Product {
+public class Fruit extends Product<FruitPack> {
 
     private boolean isFresh;
     private SweetnessLevel sweetness;
@@ -11,9 +11,9 @@ public class Fruit extends Product {
     public Fruit() {
     }
 
-    public Fruit(String title, double price,
+    public Fruit(String title, double price, FruitPack pack,
                  boolean isFresh, SweetnessLevel sweetness) {
-        super(title, price);
+        super(title, price, pack);
         this.isFresh = isFresh;
         this.sweetness = sweetness;
     }
