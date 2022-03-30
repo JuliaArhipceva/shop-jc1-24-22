@@ -1,5 +1,7 @@
 package org.example.shop.model;
 
-public interface Pack {
+import java.io.Serializable;
+
+public interface Pack extends Serializable {
     String getLabel();
 }

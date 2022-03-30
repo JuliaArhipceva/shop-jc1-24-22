@@ -1,59 +1,60 @@
 package org.example.shop.app;
 
+import org.example.shop.db.DB;
 import org.example.shop.model.Fruit;
 import org.example.shop.model.FruitPack;
 import org.example.shop.model.Product;
 import org.example.shop.model.SweetnessLevel;
 import org.example.shop.repository.ProductRepository;
 import org.example.shop.service.ProductService;
+import org.example.shop.util.FruitCreator;
+import org.example.shop.util.Menu;
 import org.example.shop.util.MenuOption;
+import org.example.shop.util.SerializationUtil;
 
 import java.util.Comparator;
 import java.util.Set;
 
 public class App {
     public static void main(String[] args) {
+
         ProductRepository repository = new ProductRepository();
         ProductService service = new ProductService(repository);
 
-        saveInitialData(service);
-
-        service.readAll().forEach(Product::showPackInfo);
-
-        printMenu();
-        MenuOption userChoice = retrieveUserChoice();
-        switch (userChoice) {
-            case SORT:
-                printSortedProducts(service.readAll());
-                break;
-            default:
-                System.out.println("No such option");
-        }
-    }
-
-    public static void saveInitialData(ProductService service) {
         FruitPack applePack = new FruitPack("Apple pack");
         Fruit apple = new Fruit("Apple", 3.3, applePack,
                 true, SweetnessLevel.HIGH);
-        service.save(apple);
+        SerializationUtil.serialize("temp.txt", apple);
+        Fruit fr = (Fruit) SerializationUtil.deserialize("temp.txt").get();
 
-        FruitPack orangePack = new FruitPack("Orange pack");
-        Fruit orange = new Fruit("Orange", 5.3, orangePack,
-                true, SweetnessLevel.MEDIUM);
-        service.save(orange);
+        DB.load();
 
-        FruitPack bananaPack = new FruitPack("Banana pack");
-        Fruit banana = new Fruit("Banana", 4.3, bananaPack,
-                true, SweetnessLevel.HIGH);
-        service.save(banana);
-    }
 
-    private static void printMenu() {
-        System.out.println("Enter " + MenuOption.SORT.getValue() + " to sort by price");
-    }
+        boolean continueProgram = true;
 
-    private static MenuOption retrieveUserChoice() {
-        return MenuOption.SORT;
+        while (continueProgram) {
+            Menu.printMenu();
+            MenuOption userChoice = Menu.retrieveUserChoice();
+            switch (userChoice) {
+                case NEW_FRUIT:
+                    Fruit fruit = FruitCreator.createFruit();
+                    service.save(fruit);
+                    break;
+                case PRINT_ALL:
+                    service.readAll().forEach(System.out::println);
+                    break;
+                case SORT:
+                    printSortedProducts(service.readAll());
+                    break;
+                case STOP:
+                    continueProgram = false;
+                    break;
+                case DEFAULT:
+                    System.out.println("No such option");
+            }
+        }
+
+        DB.save();
     }
 
     private static void printSortedProducts(Set<Product> products) {

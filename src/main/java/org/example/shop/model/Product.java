@@ -3,9 +3,11 @@ package org.example.shop.model;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
+
 @Getter
 @Setter
-public abstract class Product<T extends Pack> implements Damageable {
+public abstract class Product<T extends Pack> implements Damageable, Serializable {
     private String title;
     private double price;
     private T pack;
