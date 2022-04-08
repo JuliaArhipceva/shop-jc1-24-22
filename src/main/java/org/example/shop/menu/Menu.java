@@ -1,4 +1,4 @@
-package org.example.shop.util;
+package org.example.shop.menu;
 
 import java.util.Scanner;
 

@@ -1,4 +1,4 @@
-package org.example.shop.util;
+package org.example.shop.menu;
 
 import java.util.Arrays;
 import java.util.Optional;

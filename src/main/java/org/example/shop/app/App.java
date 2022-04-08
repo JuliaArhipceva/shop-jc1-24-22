@@ -8,8 +8,8 @@ import org.example.shop.model.SweetnessLevel;
 import org.example.shop.repository.ProductRepository;
 import org.example.shop.service.ProductService;
 import org.example.shop.util.FruitCreator;
-import org.example.shop.util.Menu;
-import org.example.shop.util.MenuOption;
+import org.example.shop.menu.Menu;
+import org.example.shop.menu.MenuOption;
 import org.example.shop.util.SerializationUtil;
 
 import java.util.Comparator;
