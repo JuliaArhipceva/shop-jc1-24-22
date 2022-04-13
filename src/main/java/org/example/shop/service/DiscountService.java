@@ -19,4 +19,8 @@ public class DiscountService {
         int finalPriceInPercent = 100 - discount;
         return price * finalPriceInPercent / 100;
     }
+
+    public void applyNegativeDiscount() {
+        throw new UnsupportedOperationException("Negative discount is not allowed.");
+    }
 }

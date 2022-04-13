@@ -14,8 +14,9 @@ import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class DiscountServiceTest {
+class DiscountServiceJunit5Test {
 
     private static DiscountService discountService;
     private Fruit apple;
@@ -75,6 +76,13 @@ class DiscountServiceTest {
 
         // then
         assertEquals(expected, finalPrice);
+    }
+
+    @Test
+    void testApplyNegativeDiscount() {
+        // when -> then
+        assertThrows(UnsupportedOperationException.class, () ->
+                discountService.applyNegativeDiscount());
     }
 
     private static Stream<Arguments> valuesForCountFinalPrice() {

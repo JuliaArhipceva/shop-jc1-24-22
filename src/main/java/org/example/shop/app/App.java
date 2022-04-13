@@ -6,6 +6,7 @@ import org.example.shop.model.FruitPack;
 import org.example.shop.model.Product;
 import org.example.shop.model.SweetnessLevel;
 import org.example.shop.repository.ProductRepository;
+import org.example.shop.service.DiscountService;
 import org.example.shop.service.ProductService;
 import org.example.shop.util.FruitCreator;
 import org.example.shop.menu.Menu;
@@ -19,7 +20,8 @@ public class App {
     public static void main(String[] args) {
 
         ProductRepository repository = new ProductRepository();
-        ProductService service = new ProductService(repository);
+        DiscountService discountService = new DiscountService();
+        ProductService service = new ProductService(repository, discountService);
 
         FruitPack applePack = new FruitPack("Apple pack");
         Fruit apple = new Fruit("Apple", 3.3, applePack,
